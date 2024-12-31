@@ -16,40 +16,54 @@ CIFAR_10_LT/CIFAR_100_LT: Use the following command to download the CIFAR datase
 ImageNet_LT: Download at this link: [ImageNet_LT](https://github.com/zhmiao/OpenLongTailRecognition-OLTR).
 
  
-# 目录结构描述
-    ├── ReadMe.md           // 帮助文档
+# Directory structure of the dataset
+
     
-    ├── AutoCreateDDS.py    // 合成DDS的 python脚本文件
+    │   ├── Cifar100     
     
-    ├── DDScore             // DDS核心文件库，包含各版本的include、src、lib文件夹，方便合并
+    │       ├── origin
     
-    │   ├── include_src     // 包含各版本的include、src文件夹
+    │           ├── 10003_label_22.png
+
+    │           ├── 10010_label_1.png
     
-    │       ├── V1.0
+    │           └── ......
     
-    │           ├── include
+    │   └── Cifar10         
     
-    │           └── src
+    │       ├── origin     
     
-    │       └── V......
+    │           ├── 01_label_0.png
+
+    │           ├── 1093_label_2.png
     
-    │   └── lib             // 包含各版本的lib文件夹
+    │           └── ......
     
-    │       ├── arm64       // 支持arm64系统版本的lib文件夹
+    │   └── ImageNet         
+
+    │       ├── train
     
-    │           ├── V1.0
+    │           ├── 0     
     
-    │           └── V......
+    │               ├── n01440764_10027_0.JPEG
     
-    │       └── x86         // 支持x86系统版本的lib文件夹
+    │               └── ......
     
-    │           ├── V1.0
+    │           ├── 1     
     
-    │           └── V......
+    │               ├── n01443537_10025_1.JPEG
     
-    ├── target              // 合成结果存放的文件夹
+    │               └── ......
     
-    └── temp                // 存放待合并的服务的服务文件夹
+    │           └── ......
+
+    │       ├── test
+
+    │           ├── 00000001_65.JPEG
+
+    │           ├── 00000002_970.JPEG
+    
+    │           └── ......
  
 # 使用说明
  
