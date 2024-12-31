@@ -1,10 +1,20 @@
 # Diffusion-VagMix
-    本项目是针对代码工具链生成的DDS服务文件所建立的。
- 
-    能够将多个DDS服务文件进行合并，构建DDS基本服务端以及客户端程序框架。包含生成server.cpp、client.cpp、CMakeLists.txt
- 
-# 环境依赖
- 
+This is the reproduction code of the paper *Data Enhancement for Long-tailed Tasks: Diffusion Model with Optimized Quality Filter*.
+
+# Requirements
+
+    conda create -n DVM python=3.9
+    conda activate DVM
+    pip install -r requirements.txt
+
+# Dataset
+CIFAR_10_LT/CIFAR_100_LT: Use the following command to download the CIFAR dataset
+
+    wget https://www.cs.toronto.edu/~kriz/cifar-10-python.tar.gz
+    wget https://www.cs.toronto.edu/~kriz/cifar-100-python.tar.gz
+
+ImageNet_LT: Download at this link: [ImageNet_LT]([https://github.com](https://github.com/zhmiao/OpenLongTailRecognition-OLTR)).
+
  
 # 目录结构描述
     ├── ReadMe.md           // 帮助文档
