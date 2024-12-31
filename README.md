@@ -13,7 +13,7 @@ CIFAR_10_LT/CIFAR_100_LT: Use the following command to download the CIFAR datase
     wget https://www.cs.toronto.edu/~kriz/cifar-10-python.tar.gz
     wget https://www.cs.toronto.edu/~kriz/cifar-100-python.tar.gz
 
-ImageNet_LT: Download at this link: [ImageNet_LT]([https://github.com](https://github.com/zhmiao/OpenLongTailRecognition-OLTR)).
+ImageNet_LT: Download at this link: [ImageNet_LT](https://github.com/zhmiao/OpenLongTailRecognition-OLTR).
 
  
 # 目录结构描述
