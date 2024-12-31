@@ -17,7 +17,7 @@ ImageNet_LT: Download at this link: [ImageNet_LT](https://github.com/zhmiao/Open
 
  
 # Directory structure of the dataset
-
+First, after preparing the dataset, we need to extract the dataset into a file and arrange it in the following way, ready to be diffused using the diffusion model.
     
     │   ├── Cifar100     
     
