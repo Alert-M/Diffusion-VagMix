@@ -65,16 +65,8 @@ ImageNet_LT: Download at this link: [ImageNet_LT](https://github.com/zhmiao/Open
     
     │           └── ......
  
-# 使用说明
+# Training
  
  
  
-# 版本内容更新
-###### v1.0.0: 
-    1.实现gen文件的拷贝、合并
-    
-    2.实现common文件的合并
-    
-    3.实现指定版本的include、src、lib文件的拷贝
- 
- v
+
