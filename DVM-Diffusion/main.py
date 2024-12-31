@@ -53,10 +53,8 @@ def main():
 
     print(f"Number of images in augmented_train_dataset: {len(augmented_train_dataset)}")
 
-    # 遍历数据集并保存图像
     for idx, (image, label) in enumerate(augmented_train_dataset):
         try:
-            # 获取源文件的路径和名称
             source_image_path, _ = augmented_train_dataset.original_dataset.samples[idx]
             source_image_name = os.path.basename(source_image_path)
             source_image_base, source_image_ext = os.path.splitext(source_image_name)
@@ -90,7 +88,6 @@ def main():
                 print(f"OSError: Failed to create directory {class_dir}. {e}")
                 continue
 
-        # 为每个提示词生成唯一的文件名并保存
         for prompt in prompts:
             save_path = os.path.join(class_dir, f"{source_image_base}_{prompt}{source_image_ext}")
             try:
