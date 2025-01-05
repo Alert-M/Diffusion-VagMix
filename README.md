@@ -76,23 +76,38 @@ Each time you can select one from the following prompts.
 
 Then we can start training.
 
-##CIFAR
+## CIFAR
 Since the dataset is already expanded through diffusion, the DVM module does not need to be employed during subsequent uses. It is sufficient to make minor adjustments to the dataset loading method. Consequently, the complete DVM module is integrated solely within the LDAM-DRW approach. Training can be conducted using this method initially, after which the enhanced dataset can be directly applied to other methods.
 
 - LDAM-DRW-DVM
 For the first training, use train_DVM.py, and then you can use train_base.py for training.
 
-        python LDAM-DRW-DVM/train_DVM.py --gpu 0 --imb_type exp --loss_type CE --train_rule None --dataset cifar10/cifar100
-        python LDAM-DRW-DVM/train_DVM.py --gpu 0 --imb_type exp --loss_type CE --train_rule DRW --dataset cifar10/cifar100
-        python LDAM-DRW-DVM/train_DVM.py --gpu 0 --imb_type exp --loss_type LDAM --train_rule DRW --dataset cifar10/cifar100
+        python LDAM-DRW-DVM/train_DVM.py --gpu 0 --loss_type CE --train_rule None --dataset cifar10/cifar100
+        python LDAM-DRW-DVM/train_DVM.py --gpu 0 --loss_type CE --train_rule DRW --dataset cifar10/cifar100
+        python LDAM-DRW-DVM/train_DVM.py --gpu 0 --loss_type LDAM --train_rule DRW --dataset cifar10/cifar100
 
 - CMO_DVM
 
         python CMO_DVM/train_DVM_CIFAR10.py --dataset cifar10 --loss_type CE --train_rule DRW --epochs 200 --data_aug CMO --num_classes 10
         python CMO_DVM/train_DVM_CIFAR100.py --dataset cifar100 --loss_type CE --train_rule DRW --epochs 200 --data_aug CMO --num_classes 100
 
-##ImageNet
-    
+## ImageNet
+For ImageNet-LT, due to the large number of images and the long processing time of DVM, we separate the data augmentation and training process.
+- DVM handling
+
+        python SAM_DVM/DVM_Handle.py
+
+- SAM-DVM
+
+        python SAM_DVM/imnet_train_DVM.py --gpu 0 --loss_type CE --train_rule None -b 256 --epochs 120 --arch resnet50 --wd 2e-4 --lr 0.2 --cos_lr --margin 0.3 
+        python SAM_DVM/imnet_train_DVM.py --gpu 0 --loss_type CE --train_rule DRW -b 256 --epochs 120 --arch resnet50 --wd 2e-4 --lr 0.2 --cos_lr --margin 0.3
+        python SAM_DVM/imnet_train_DVM.py --gpu 0 --loss_type LDAM --train_rule DRW -b 256 --epochs 120 --arch resnet50 --wd 2e-4 --lr 0.2 --cos_lr --margin 0.3
+        python SAM_DVM/imnet_train_sam_DVM.py --gpu 0 --loss_type CE --train_rule DRW --dataset imagenet -b 256 --epochs120 --arch resnet50 --cos_lr --rho_schedule step --lr 0.2 --rho_steps 0.05 0.1 0.5 0.5 --wd 2e-4 --margin 0.3
+          
+The size of the DVM cropping and whether to perform blur processing can be adjusted by modifying the following parameters in the DVM loading module.
+
+    cut_ratio, blur=False, blur_level=5
+
 
  
  
