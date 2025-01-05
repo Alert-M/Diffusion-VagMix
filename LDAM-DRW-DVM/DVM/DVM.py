@@ -51,12 +51,12 @@ class CustomCIFAR100(Dataset):
         generated_suffixes = ["Autumn", "snowy", "sunset", "rainbow", "mosaic"]
 
         total_images = len(self.imgs)
-        print(f"原始图片数量：{total_images}")
+        print(f"Number of original images: {total_images}")    
 
-        threshold = 0.3  
+         = 0threshold.3  
         img_account=0
 
-        print(f"开始对比生成图片和原始图片。")
+    print(f"Start comparing the generated image with the original image.")
 
         for idx, (original_path, label) in enumerate(self.imgs):
             original_features = self._extract_features(original_path)
@@ -64,12 +64,12 @@ class CustomCIFAR100(Dataset):
             original_base_name = os.path.basename(original_path).split('_label_')[0]
             original_label = int(os.path.basename(original_path).split('_label_')[1].replace('.png', ''))
 
-            print(f"正在处理第 {idx + 1}/{total_images} 张原始图片：{original_path}")
+            print(f"Processing the {idx + 1}/{total_images}th original image: {original_path}")
 
             found_similar_images = False
             for fname in os.listdir(self.root):
                 if any(fname.endswith(f"{suffix}.png") for suffix in generated_suffixes):
-                    # 提取生成图片的基础部分和标签
+
                     parts = os.path.basename(fname).split('_label_')
                     if len(parts) < 2:
                         continue  
@@ -87,25 +87,25 @@ class CustomCIFAR100(Dataset):
                         generated_features = self._extract_features(generated_path)
                         similarity = self._calculate_similarity(original_features, generated_features)
 
-                        print(f"    对比生成图片：{generated_path}，相似度：{similarity:.2f}")
+                        print(f"Comparison generated image: {generated_path}, similarity: {similarity:.2f}")
 
                         if similarity >= threshold:
-                            print(f"    相似度高于阈值，应用ACE处理到生成图片：{generated_path}。")
+                            print(f" Similarity is higher than the threshold, apply ACE processing to the generated image: {generated_path}.")
                             img_account+=1
                             self._apply_ace_to_image(generated_path)
                             generated_features = self._extract_features(generated_path) 
                             similarity = self._calculate_similarity(original_features, generated_features)
-                            print(f"    应用ACE后相似度：{similarity:.2f}")
+                            print(f" Similarity after applying DVM: {similarity:.2f}")
 
                         filtered_imgs.append((generated_path, label))
-                        print(f"    已筛选出一张生成图片：{generated_path}，相似度：{similarity:.2f}")
+                        print(f"A generated image has been selected: {generated_path}, similarity: {similarity:.2f}")
                         found_similar_images = True
 
             if not found_similar_images:
-                print(f"    当前原始图片 {original_path} 没有找到匹配的生成图片或相似度未达标。")
+                print(f" The current original image {original_path} does not find a matching generated image or the similarity does not meet the standard.")
 
-        print(f"对比完成，筛选出 {len(filtered_imgs)} 张生成图片。")
-        print(f"已处理 {img_account} 张生成图片。")
+        print(f"Comparison completed, {len(filtered_imgs)} generated images were filtered out.")
+        print(f"{img_account} generated images processed.")
         self.imgs.extend(filtered_imgs)  
 
     def _extract_features(self, img_path):
@@ -229,12 +229,12 @@ class CustomCIFAR10(Dataset):
         generated_suffixes = ["autumn", "snowy", "sunset", "rainbow", "mosaic"]
 
         total_images = len(self.imgs)
-        print(f"原始图片数量：{total_images}")
+        print(f"Number of original images: {total_images}")
 
         threshold = 0.3  
         img_account = 0
 
-        print(f"开始对比生成图片和原始图片。")
+        print(f"Start comparing the generated image with the original image.")
 
         for idx, (original_path, label) in enumerate(self.imgs):
             original_features = self._extract_features(original_path)
@@ -242,7 +242,7 @@ class CustomCIFAR10(Dataset):
             original_base_name = os.path.basename(original_path).split('_label_')[0]
             original_label = int(os.path.basename(original_path).split('_label_')[1].replace('.png', ''))
 
-            print(f"正在处理第 {idx + 1}/{total_images} 张原始图片：{original_path}")
+            print(f"Processing the {idx + 1}/{total_images}th original image: {original_path}")
 
             found_similar_images = False
             for fname in os.listdir(self.root):
@@ -264,25 +264,25 @@ class CustomCIFAR10(Dataset):
                         generated_features = self._extract_features(generated_path)
                         similarity = self._calculate_similarity(original_features, generated_features)
 
-                        print(f"    对比生成图片：{generated_path}，相似度：{similarity:.2f}")
+                        print(f"Comparison generated image: {generated_path}, similarity: {similarity:.2f}")
 
                         if similarity >= threshold:
-                            print(f"    相似度高于阈值，应用ACE处理到生成图片：{generated_path}。")
+                            print(f" Similarity is higher than the threshold, apply ACE processing to the generated image: {generated_path}.")
                             img_account += 1
                             self._apply_ace_to_image(generated_path)
                             generated_features = self._extract_features(generated_path)  
                             similarity = self._calculate_similarity(original_features, generated_features)
-                            print(f"    应用ACE后相似度：{similarity:.2f}")
+                            print(f" Similarity after applying DVM: {similarity:.2f}")
 
                         filtered_imgs.append((generated_path, label))
-                        print(f"    已筛选出一张生成图片：{generated_path}，相似度：{similarity:.2f}")
+                        print(f"A generated image has been selected: {generated_path}, similarity: {similarity:.2f}")
                         found_similar_images = True
 
             if not found_similar_images:
-                print(f"    当前原始图片 {original_path} 没有找到匹配的生成图片或相似度未达标。")
+                print(f" The current original image {original_path} does not find a matching generated image or the similarity does not meet the standard.")
 
-        print(f"对比完成，筛选出 {len(filtered_imgs)} 张生成图片。")
-        print(f"已处理 {img_account} 张生成图片。")
+        print(f"Comparison completed, {len(filtered_imgs)} generated images were filtered out.")
+        print(f"{img_account} generated images processed.")
         self.imgs.extend(filtered_imgs) 
 
     def _extract_features(self, img_path):
