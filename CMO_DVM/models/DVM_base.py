@@ -13,8 +13,8 @@ class CustomCIFAR10(VisionDataset):
         self.classes = list(set(label for _, label in self.imgs))
         self.class_to_idx = {cls: idx for idx, cls in enumerate(self.classes)}
         self.cls_num_list = self.get_cls_num_list()
-        self.targets = [label for _, label in self.imgs]  # 用于get_weighted_sampler中的targets
-        self.weighted_alpha = weighted_alpha  # 用于控制权重计算的参数
+        self.targets = [label for _, label in self.imgs]  
+        self.weighted_alpha = weighted_alpha  
 
     def _load_images(self, root):
         imgs = []
@@ -35,15 +35,15 @@ class CustomCIFAR10(VisionDataset):
 
     def get_weighted_sampler(self):
         cls_num_list = self.get_cls_num_list()
-        # 计算每个类别的权重，alpha控制平滑
+
         cls_weight = 1.0 / (np.array(cls_num_list) ** self.weighted_alpha)
         cls_weight = cls_weight / np.sum(cls_weight) * len(cls_num_list)
-        # 为每个样本分配权重
+
         samples_weight = np.array([cls_weight[t] for t in self.targets])
         samples_weight = torch.from_numpy(samples_weight)
         samples_weight = samples_weight.double()
         print("samples_weight", samples_weight)
-        # 创建WeightedRandomSampler
+
         sampler = torch.utils.data.WeightedRandomSampler(samples_weight, len(self.targets), replacement=True)
         return sampler
 
@@ -66,8 +66,8 @@ class CustomCIFAR100(VisionDataset):
         self.classes = list(set(label for _, label in self.imgs))
         self.class_to_idx = {cls: idx for idx, cls in enumerate(self.classes)}
         self.cls_num_list = self.get_cls_num_list()
-        self.targets = [label for _, label in self.imgs]  # 用于get_weighted_sampler中的targets
-        self.weighted_alpha = weighted_alpha  # 用于控制权重计算的参数
+        self.targets = [label for _, label in self.imgs] 
+        self.weighted_alpha = weighted_alpha
 
     def _load_images(self, root):
         imgs = []
@@ -88,15 +88,15 @@ class CustomCIFAR100(VisionDataset):
 
     def get_weighted_sampler(self):
         cls_num_list = self.get_cls_num_list()
-        # 计算每个类别的权重，alpha控制平滑
+
         cls_weight = 1.0 / (np.array(cls_num_list) ** self.weighted_alpha)
         cls_weight = cls_weight / np.sum(cls_weight) * len(cls_num_list)
-        # 为每个样本分配权重
+
         samples_weight = np.array([cls_weight[t] for t in self.targets])
         samples_weight = torch.from_numpy(samples_weight)
         samples_weight = samples_weight.double()
         print("samples_weight", samples_weight)
-        # 创建WeightedRandomSampler
+
         sampler = torch.utils.data.WeightedRandomSampler(samples_weight, len(self.targets), replacement=True)
         return sampler
 
