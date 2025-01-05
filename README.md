@@ -79,17 +79,17 @@ Then we can start training.
 ##CIFAR
 Since the dataset is already expanded through diffusion, the DVM module does not need to be employed during subsequent uses. It is sufficient to make minor adjustments to the dataset loading method. Consequently, the complete DVM module is integrated solely within the LDAM-DRW approach. Training can be conducted using this method initially, after which the enhanced dataset can be directly applied to other methods.
 
-*LDAM-DRW-DVM
+- LDAM-DRW-DVM
 For the first training, use train_DVM.py, and then you can use train_base.py for training.
 
-    python LDAM-DRW-DVM/train_DVM.py --gpu 0 --imb_type exp --loss_type CE --train_rule None --dataset cifar10/cifar100
-    python LDAM-DRW-DVM/train_DVM.py --gpu 0 --imb_type exp --loss_type CE --train_rule DRW --dataset cifar10/cifar100
-    python LDAM-DRW-DVM/train_DVM.py --gpu 0 --imb_type exp --loss_type LDAM --train_rule DRW --dataset cifar10/cifar100
+        python LDAM-DRW-DVM/train_DVM.py --gpu 0 --imb_type exp --loss_type CE --train_rule None --dataset cifar10/cifar100
+        python LDAM-DRW-DVM/train_DVM.py --gpu 0 --imb_type exp --loss_type CE --train_rule DRW --dataset cifar10/cifar100
+        python LDAM-DRW-DVM/train_DVM.py --gpu 0 --imb_type exp --loss_type LDAM --train_rule DRW --dataset cifar10/cifar100
 
-*CMO_DVM
+- CMO_DVM
 
-    python CMO_DVM/train_DVM_CIFAR10.py --dataset cifar10 --loss_type CE --train_rule DRW --epochs 200 --data_aug CMO --num_classes 10
-    python CMO_DVM/train_DVM_CIFAR100.py --dataset cifar100 --loss_type CE --train_rule DRW --epochs 200 --data_aug CMO --num_classes 100
+        python CMO_DVM/train_DVM_CIFAR10.py --dataset cifar10 --loss_type CE --train_rule DRW --epochs 200 --data_aug CMO --num_classes 10
+        python CMO_DVM/train_DVM_CIFAR100.py --dataset cifar100 --loss_type CE --train_rule DRW --epochs 200 --data_aug CMO --num_classes 100
 
 ##ImageNet
     
