@@ -15,14 +15,14 @@ import random
 
 class UP_Datasets(Dataset):
     num_classes = 1000
-    processed_count = 0  # 处理的生成图片数量计数
-    generated_keywords = ["sunset", "Autumn"]  # 生成图片关键词
+    processed_count = 0  
+    generated_keywords = ["sunset", "Autumn"]  
 
     def __init__(self, root, transform=None):
         self.root = root
         self.imgs = self._load_images()
         self.resnet18 = models.resnet18(pretrained=True)
-        self.resnet18 = nn.Sequential(*list(self.resnet18.children())[:-1])  # 移除最后的分类层
+        self.resnet18 = nn.Sequential(*list(self.resnet18.children())[:-1])  
         self.resnet18.eval()
         self.transform = transforms.Compose([
             transforms.Resize((224, 224)),
@@ -53,7 +53,7 @@ class UP_Datasets(Dataset):
                 print(f"The category folder is being processed: {class_folder}")
                 for fname in os.listdir(class_folder):
                     if fname.lower().endswith(('.png', '.jpeg', '.jpg')):
-                        # 处理所有图片
+ 
                         path = os.path.join(class_folder, fname)
                         imgs.append((path, class_index))
             else:
@@ -65,7 +65,7 @@ class UP_Datasets(Dataset):
         total_images = len(self.imgs)
         print(f"The total number of images：{total_images}")
 
-        generated_keywords = ["sunset", "Autumn"]  #prompts
+        generated_keywords = ["sunset", "Autumn"]  
         processed_images = 0
 
         for idx, (img_path, label) in enumerate(self.imgs):
@@ -73,36 +73,35 @@ class UP_Datasets(Dataset):
             if any(keyword in img_path for keyword in generated_keywords):
                 print(f"{idx + 1}/{total_images} image is being processed：{img_path}")
 
-                # 提取生成图片的原始文件名 (不使用路径，仅提取名称部分)
+
                 file_name = os.path.basename(img_path)
                 parts = file_name.split('_')
-                original_img_name = '_'.join(parts[:3]) + ".JPEG"  # 通过命名规则构造原始图片文件名
+                original_img_name = '_'.join(parts[:3]) + ".JPEG"  
 
-                # 使用与生成图片相同的路径构造原始图片路径
+
                 original_img_path = os.path.join(os.path.dirname(img_path), original_img_name)
 
                 if os.path.exists(original_img_path):
-                    # 读取生成图片和原始图片
+
                     gen_img = Image.open(img_path).convert('RGB')
                     ori_img = Image.open(original_img_path).convert('RGB')
 
-                    # 计算生成图片和原始图片的特征值
+
                     gen_features = self._extract_features(gen_img)
                     ori_features = self._extract_features(ori_img)
 
-                    # 计算特征值的余弦相似度
+
                     similarity = self._calculate_similarity(gen_features, ori_features)
                     print(f"Generate images: {file_name}, Original image: {original_img_name}, Cosine Similarity: {similarity:.4f}")
 
-                    # 如果相似度低于阈值，应用ACE处理
+
                     if similarity > 0.8:
                         print(f"Similarity is higher than the threshold, DVM processing is applied: {file_name}")
                         self.upup(img_path)
-                        # 重新提取处理后的生成图片特征
-                        processed_gen_img = Image.open(img_path).convert('RGB')  # 重新读取处理后的图片
+
+                        processed_gen_img = Image.open(img_path).convert('RGB') 
                         processed_gen_features = self._extract_features(processed_gen_img)
 
-                        # 重新计算处理后的相似度
                         processed_similarity = self._calculate_similarity(processed_gen_features, ori_features)
                         print(f"Similarity after processing: {processed_similarity:.4f}")
                         processed_images += 1
@@ -112,9 +111,9 @@ class UP_Datasets(Dataset):
         print(f"The generated image processing is complete, and {processed_images} generated images have been processed.")
 
     def _extract_features(self, img):
-        img = self.transform(img).unsqueeze(0)  # 添加批量维度
+        img = self.transform(img).unsqueeze(0)  
         with torch.no_grad():
-            features = self.resnet18(img).squeeze()  # 提取特征并去除批量维度
+            features = self.resnet18(img).squeeze() 
         return features
 
     def _calculate_similarity(self, features1, features2):
@@ -125,7 +124,6 @@ class UP_Datasets(Dataset):
     def upup(self, image_path):
         print(f"Apply DVM processing to {image_path}")
 
-        # 打开图片并应用ACE和滤波处理
         with open(image_path, 'rb') as f:
             img = Image.open(f).convert('RGB')
 
