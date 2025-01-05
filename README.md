@@ -104,9 +104,9 @@ For ImageNet-LT, due to the large number of images and the long processing time 
         python SAM_DVM/imnet_train_DVM.py --gpu 0 --loss_type LDAM --train_rule DRW -b 256 --epochs 120 --arch resnet50 --wd 2e-4 --lr 0.2 --cos_lr --margin 0.3
         python SAM_DVM/imnet_train_sam_DVM.py --gpu 0 --loss_type CE --train_rule DRW --dataset imagenet -b 256 --epochs120 --arch resnet50 --cos_lr --rho_schedule step --lr 0.2 --rho_steps 0.05 0.1 0.5 0.5 --wd 2e-4 --margin 0.3
           
-The size of the DVM cropping and whether to perform blur processing can be adjusted by modifying the following parameters in the DVM loading module.
+For the DVM cropping size, similarity threshold and whether to perform blur processing, you can modify the following parameters in the DVM loading module to adjust.
 
-    cut_ratio, blur=False, blur_level=5
+    threshold, cut_ratio, blur=False, blur_level=5
 
 
  
