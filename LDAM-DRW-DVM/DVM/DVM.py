@@ -21,7 +21,7 @@ class CustomCIFAR100(Dataset):
         self.classes = list(set([label for _, label in self.imgs]))
         self.class_to_idx = {cls: idx for idx, cls in enumerate(self.classes)}
 
-        self.feature_extractor = tv_models.resnet18(pretrained=True)
+        self.feature_extractor = tv_models.resnet50(pretrained=True)
         self.feature_extractor = torch.nn.Sequential(*list(self.feature_extractor.children())[:-1])
         self.feature_extractor.eval()  
 
@@ -199,7 +199,7 @@ class CustomCIFAR10(Dataset):
         self.classes = list(set([label for _, label in self.imgs]))
         self.class_to_idx = {cls: idx for idx, cls in enumerate(self.classes)}
 
-        self.feature_extractor = tv_models.resnet18(pretrained=True)
+        self.feature_extractor = tv_models.resnet50(pretrained=True)
         self.feature_extractor = torch.nn.Sequential(*list(self.feature_extractor.children())[:-1])
         self.feature_extractor.eval() 
 
