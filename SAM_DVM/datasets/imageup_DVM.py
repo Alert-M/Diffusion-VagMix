@@ -21,9 +21,9 @@ class UP_Datasets(Dataset):
     def __init__(self, root, transform=None):
         self.root = root
         self.imgs = self._load_images()
-        self.resnet18 = models.resnet18(pretrained=True)
-        self.resnet18 = nn.Sequential(*list(self.resnet18.children())[:-1])  
-        self.resnet18.eval()
+        self.resnet50 = models.resnet50(pretrained=True)
+        self.resnet50 = nn.Sequential(*list(self.resnet50.children())[:-1])  
+        self.resnet50.eval()
         self.transform = transforms.Compose([
             transforms.Resize((224, 224)),
             transforms.ToTensor(),
@@ -113,7 +113,7 @@ class UP_Datasets(Dataset):
     def _extract_features(self, img):
         img = self.transform(img).unsqueeze(0)  
         with torch.no_grad():
-            features = self.resnet18(img).squeeze() 
+            features = self.resnet50(img).squeeze() 
         return features
 
     def _calculate_similarity(self, features1, features2):
