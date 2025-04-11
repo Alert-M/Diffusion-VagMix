@@ -91,6 +91,11 @@ For the first training, use train_DVM.py, and then you can use train_base.py for
         python CMO_DVM/train_DVM_CIFAR10.py --dataset cifar10 --loss_type CE --train_rule DRW --epochs 200 --data_aug CMO --num_classes 10
         python CMO_DVM/train_DVM_CIFAR100.py --dataset cifar100 --loss_type CE --train_rule DRW --epochs 200 --data_aug CMO --num_classes 100
 
+- CSA_DVM
+
+        python CSA_DVM/train_DVM.PY --dataset cifar10 --lr 0.2 --lose_type BCL --epoches 200 --num_classes 100 --batch_size 128
+        python CSA_DVM/train_DVM.PY --dataset cifar100 --lr 0.2 --lose_type BCL --epoches 200 --num_classes 100 --batch_size 128
+
 ## ImageNet
 For ImageNet-LT, due to the large number of images and the long processing time of DVM, we separate the data augmentation and training process.
 - DVM handling
@@ -103,6 +108,10 @@ For ImageNet-LT, due to the large number of images and the long processing time 
         python SAM_DVM/imnet_train_DVM.py --gpu 0 --loss_type CE --train_rule DRW -b 256 --epochs 120 --arch resnet50 --wd 2e-4 --lr 0.2 --cos_lr --margin 0.3
         python SAM_DVM/imnet_train_DVM.py --gpu 0 --loss_type LDAM --train_rule DRW -b 256 --epochs 120 --arch resnet50 --wd 2e-4 --lr 0.2 --cos_lr --margin 0.3
         python SAM_DVM/imnet_train_sam_DVM.py --gpu 0 --loss_type CE --train_rule DRW --dataset imagenet -b 256 --epochs120 --arch resnet50 --cos_lr --rho_schedule step --lr 0.2 --rho_steps 0.05 0.1 0.5 0.5 --wd 2e-4 --margin 0.3
+
+  - CSA_DVM
+
+        python CSA_DVM/train_DVM.PY --dataset imagenet --lr 0.2 --lose_type BCL --epoches 120 --num_classes 1000 --batch_size 256  --print_freq 100
           
 For the DVM cropping size, similarity threshold and whether to perform blur processing, you can modify the following parameters in the DVM loading module to adjust.
 
