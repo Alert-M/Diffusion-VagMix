@@ -109,7 +109,7 @@ For ImageNet-LT, due to the large number of images and the long processing time 
         python SAM_DVM/imnet_train_DVM.py --gpu 0 --loss_type LDAM --train_rule DRW -b 256 --epochs 120 --arch resnet50 --wd 2e-4 --lr 0.2 --cos_lr --margin 0.3
         python SAM_DVM/imnet_train_sam_DVM.py --gpu 0 --loss_type CE --train_rule DRW --dataset imagenet -b 256 --epochs120 --arch resnet50 --cos_lr --rho_schedule step --lr 0.2 --rho_steps 0.05 0.1 0.5 0.5 --wd 2e-4 --margin 0.3
 
-  - CSA_DVM
+- CSA_DVM
 
         python CSA_DVM/train_DVM.PY --dataset imagenet --lr 0.2 --lose_type BCL --epoches 120 --num_classes 1000 --batch_size 256  --print_freq 100
           
